@@ -107,3 +107,77 @@ console.log(reverseArray(['A','B','C']));
 let arr=[1,2,3,4,5,6];
 reverseArrayInPlace(arr);
 console.log(arr);
+console.log("ARRAYTOLIST EXERCISE");
+function arrayToList(arr){
+  newarr= arr.slice(1,arr.length);
+  if(arr.length==0)
+    return null;
+  let list = {
+    value: arr[0],
+    rest:
+      arrayToList(newarr)
+    };
+  return list;
+}
+console.log(arrayToList([1,2,3]));
+console.log(arrayToList([10,20, 30]));
+var list = arrayToList([10,20,30]);
+console.log("LISTTOARRAY EXERCISE");
+function listToArray(list){
+  var arr=[];
+  while(list.rest!=null){
+    arr.push(list.value);
+    list=list.rest;
+  }
+  arr.push(list.value);
+  return arr;
+}
+console.log(listToArray(list));
+console.log("PREPEND HELPER CLASS");
+function prepend(elem, list){
+  return {value: elem, rest:list};
+}
+console.log(prepend(10, prepend(20,null)));
+console.log("NTH HELPER CLASS");
+function nth(list, pos){
+  if(pos==0)
+    return list.value;
+  else if(list.rest==null)
+    return undefined;
+  return nth(list.rest, pos-1);
+
+}
+console.log(nth(arrayToList([10,20,30]),0));
+
+console.log("DEEP COMPARISON EXERCISE");
+function deepEqual(value1, value2){
+  if((typeof value1 == "object" && value1!=null) 
+    && (typeof value2 == "object" && value2!=null)){
+    var v1keys = Object.keys(value1);
+    var v2keys = Object.keys(value2);
+    console.log(v1keys);
+    //Check if keys are same length
+    if(v1keys.length!==v2keys.length){
+    console.log("first false " + "v1: " +value1 + " v2:" + value2);
+      return false;
+    }
+    else{
+      for(var i=0;i<v1keys.length; i++){
+        //Check if keys are the same value
+        console.log(v1keys[i]);
+        if(deepEqual(v1keys[i], v2keys[i]))
+          return deepEqual(value1[v1keys[i]], value2[v2keys[i]]);
+        else{ 
+          return false;
+        }
+      }
+    }
+  }
+  else{
+    return value1===value2;
+  }
+}
+let obj = {here: {is: "an"}, object: 3};
+let obj2 = {here: {i: "another"}, object:2};
+let obj3 = {here: {isnt: "another"}, objec:5};
+console.log(deepEqual(obj, {here: {is: "an"}, object: 3}));
