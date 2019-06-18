@@ -150,7 +150,7 @@ function nth(list, pos){
 console.log(nth(arrayToList([10,20,30]),0));
 
 console.log("DEEP COMPARISON EXERCISE");
-function deepEqual(value1, value2){
+const deepEqual = (value1, value2)=>{
   if((typeof value1 == "object" && value1!=null) 
     && (typeof value2 == "object" && value2!=null)){
     var v1keys = Object.keys(value1);
@@ -181,3 +181,16 @@ let obj = {here: {is: "an"}, object: 3};
 let obj2 = {here: {i: "another"}, object:2};
 let obj3 = {here: {isnt: "another"}, objec:5};
 console.log(deepEqual(obj, {here: {is: "an"}, object: 3}));
+
+console.log("HIGHER-ORDER-FUNCTIONS EXERCISE");
+console.log("FLATTENING");
+let arrays = [[1,2,3],[4,5],[6]];
+console.log(arrays.reduce((a,b)=>a.concat(b)));
+console.log("YOUR OWN LOOP");
+function loop(value, test, update, body){
+  while(test(value)){
+    body(value);
+    value=update(value);
+  }
+}
+loop(3, n=>n>0, n=>n-1, console.log);
