@@ -193,4 +193,41 @@ function loop(value, test, update, body){
     value=update(value);
   }
 }
-loop(3, n=>n>0, n=>n-1, console.log);
+loop(6, n=>n>0, n=>n-1, console.log);
+console.log("EVERYTHING");
+function every(array, test){
+  for(i=0;i<array.length;i++){
+    if(!test(array[i]))
+      return false;
+  }
+  return true;
+}
+console.log(every([1,3,5], n=>n<10));
+console.log(every([2,4,16], n=>n<10));
+console.log(every([],n=>n<10));
+console.log("EVERYTHING V2")
+function every(array, test){
+  return !array.some(elem=>!test(elem));
+}
+console.log(every([1,3,5], n=>n<10));
+console.log(every([2,4,16], n=>n<10));
+console.log(every([],n=>n<10));
+console.log("THE SECRET LIFE OF OBJECTS EXERCISE");
+console.log("A VECTOR TYPE");
+class Vec{
+  constructor(x,y){
+    this.x = x;
+    this.y = y;
+  }
+  plus(anotherVec){
+    return new Vec(this.x+anotherVec.x, this.y+anotherVec.y);
+  }
+  minus(anotherVec){
+    return new Vec(this.x-anotherVec.x, this.y-anotherVec.y);
+  }
+  get length(){
+    return Math.sqrt(this.x*this.x+this.y*this.y);
+  }
+}
+console.log(new Vec(1,2).plus(new Vec(2,3)));
+console.log(new Vec(3,4).length);
