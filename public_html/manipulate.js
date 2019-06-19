@@ -19,7 +19,7 @@ console.log('\n');
 //Exercise 3
 console.log("Exercise 3 results")
 const size=21
-var str='';
+let str='';
 for(let i=0;i<size;i++){
   for(let j=0;j<size;j++){
     if((j+i)%2==0){
@@ -231,3 +231,54 @@ class Vec{
 }
 console.log(new Vec(1,2).plus(new Vec(2,3)));
 console.log(new Vec(3,4).length);
+class Group{
+  constructor(){
+      this.members = [];
+  }
+  add(value){
+    if(!this.members.some((e)=>e===value))
+      this.members.push(value);
+  }
+  remove(value){
+      this.members = this.members.filter((e)=>e!==value);
+  }
+  has(value){
+    return this.members.some((e)=>e===value);
+  }
+	static from(iterable){
+    let group = new Group();
+    for(let e of iterable)
+      group.add(e);
+    return group;
+	}
+  toString(){
+    console.log(this.members);
+  }
+	[Symbol.iterator](){
+		return new GroupIterator(this);
+	};
+}
+let group = Group.from([10, 20]);
+console.log(group.has(10));
+// → true
+console.log(group.has(30));
+// → false
+group.add(10);
+group.remove(10);
+console.log(group.has(10));
+// → false
+class GroupIterator{
+  constructor(group){
+    this.index=0;
+    this.group=group;
+  }
+  next(){
+    if(this.index==this.group.members.length) return {done: true};
+    let result = {value:this.group.members[this.index], done:false};
+		this.index++;
+		return result;
+  }
+}
+for (let value of Group.from(["a", "b", "c"])) {
+  console.log(value);
+}
